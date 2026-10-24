@@ -272,6 +272,119 @@ export default function HomePage() {
     },
   ];
 
+  const TESTIMONIAL_THEMES = [
+    // Card 0: Pearl Frost White & Subtle Lime Tint (Colombo 07 - Cinnamon Gardens)
+    {
+      cardWrapper:
+        "bg-gradient-to-br from-white via-[#FCFDF8] to-[#F3F9E6] border-lime/60 shadow-[0_-16px_45px_rgba(0,0,0,0.08),0_25px_50px_rgba(200,241,105,0.18)] hover:border-lime",
+      topAccentBar: "bg-gradient-to-r from-lime-dark via-lime to-transparent",
+      ambientGlow: "bg-lime/25",
+      quoteBox: "bg-lime/30 border-lime/50 text-charcoal shadow-sm",
+      quoteIcon: "text-charcoal fill-lime",
+      storyBadge: "bg-white border-gray-200/90 text-charcoal shadow-xs",
+      ratingBadge: "bg-white border-gray-200/80 text-charcoal shadow-xs",
+      feedbackText: "text-charcoal",
+      metricBadge: "bg-white text-charcoal border-gray-200/90 shadow-sm",
+      metricDot: "bg-lime-dark",
+      clientName: "text-charcoal",
+      clientCheck: "text-lime-dark",
+      clientDesignation: "text-muted",
+      clientLocation: "text-charcoal",
+      systemTagLabel: "text-muted",
+      systemTagValue: "text-charcoal",
+      divider: "border-gray-200/80",
+      imageBorder: "border-gray-200/90",
+    },
+    // Card 1: Obsidian Charcoal & Neon Lime High-Contrast Dark Mode (Kandy - Central Hills)
+    {
+      cardWrapper:
+        "bg-gradient-to-br from-[#131518] via-[#181B1F] to-[#0F1012] border-white/15 shadow-[0_-16px_45px_rgba(0,0,0,0.4),0_25px_50px_rgba(0,0,0,0.35)] hover:border-lime/60",
+      topAccentBar: "bg-gradient-to-r from-lime via-lime-dark to-transparent",
+      ambientGlow: "bg-lime/20",
+      quoteBox: "bg-lime text-charcoal border-lime shadow-[0_0_25px_rgba(200,241,105,0.35)]",
+      quoteIcon: "text-charcoal fill-charcoal",
+      storyBadge: "bg-white/10 border-white/20 text-lime shadow-xs font-semibold",
+      ratingBadge: "bg-white/10 border-white/20 text-white shadow-xs",
+      feedbackText: "text-white font-medium",
+      metricBadge: "bg-lime/15 text-lime border-lime/40 shadow-sm font-bold",
+      metricDot: "bg-lime animate-pulse",
+      clientName: "text-white",
+      clientCheck: "text-lime",
+      clientDesignation: "text-gray-400",
+      clientLocation: "text-lime font-bold",
+      systemTagLabel: "text-gray-400",
+      systemTagValue: "text-white font-semibold",
+      divider: "border-white/10",
+      imageBorder: "border-white/15",
+    },
+    // Card 2: Signature Solar Electric Lime (Battaramulla - EV & Rooftop Solar)
+    {
+      cardWrapper:
+        "bg-gradient-to-br from-[#C8F169] via-[#D2F67D] to-[#BAED52] border-[#9ED428] shadow-[0_-16px_45px_rgba(0,0,0,0.12),0_25px_50px_rgba(200,241,105,0.35)] hover:border-charcoal/40",
+      topAccentBar: "bg-gradient-to-r from-charcoal via-charcoal/80 to-transparent",
+      ambientGlow: "bg-white/40",
+      quoteBox: "bg-charcoal text-lime border-charcoal shadow-md",
+      quoteIcon: "text-lime fill-lime",
+      storyBadge: "bg-charcoal text-lime border-charcoal shadow-xs font-bold",
+      ratingBadge: "bg-white/90 border-black/10 text-charcoal shadow-xs backdrop-blur-sm",
+      feedbackText: "text-charcoal font-bold tracking-tight",
+      metricBadge: "bg-charcoal text-white border-black/20 shadow-sm font-bold",
+      metricDot: "bg-lime",
+      clientName: "text-charcoal font-black",
+      clientCheck: "text-charcoal",
+      clientDesignation: "text-charcoal/80 font-medium",
+      clientLocation: "text-charcoal font-black",
+      systemTagLabel: "text-charcoal/70 font-semibold",
+      systemTagValue: "text-charcoal font-black",
+      divider: "border-black/15",
+      imageBorder: "border-black/15",
+    },
+    // Card 3: Coastal Ocean Mint & Emerald Eco-Luxury (Galle Fort - Marine Boutique Villa)
+    {
+      cardWrapper:
+        "bg-gradient-to-br from-[#F0FDF8] via-[#E4F8F0] to-[#D5F4E7] border-emerald-300 shadow-[0_-16px_45px_rgba(0,0,0,0.08),0_25px_50px_rgba(16,185,129,0.18)] hover:border-emerald-400",
+      topAccentBar: "bg-gradient-to-r from-emerald-500 via-emerald-400 to-transparent",
+      ambientGlow: "bg-emerald-300/30",
+      quoteBox: "bg-emerald-600 text-white border-emerald-700 shadow-md",
+      quoteIcon: "text-white fill-white",
+      storyBadge: "bg-emerald-100 text-emerald-900 border-emerald-300 shadow-xs font-bold",
+      ratingBadge: "bg-white/90 border-emerald-200 text-charcoal shadow-xs",
+      feedbackText: "text-[#0D281E] font-semibold",
+      metricBadge: "bg-emerald-100/90 text-emerald-950 border-emerald-400/80 shadow-sm font-bold",
+      metricDot: "bg-emerald-600",
+      clientName: "text-[#0D281E] font-extrabold",
+      clientCheck: "text-emerald-600",
+      clientDesignation: "text-emerald-900/70 font-medium",
+      clientLocation: "text-[#0D281E] font-black",
+      systemTagLabel: "text-emerald-900/70 font-semibold",
+      systemTagValue: "text-[#0D281E] font-bold",
+      divider: "border-emerald-200/80",
+      imageBorder: "border-emerald-200",
+    },
+    // Card 4: Midnight Cyber Slate & Glowing Lime Accent (Negombo - Remote Tech Lead)
+    {
+      cardWrapper:
+        "bg-gradient-to-br from-[#0B0F19] via-[#111827] to-[#090C14] border-lime/50 shadow-[0_-20px_50px_rgba(0,0,0,0.5),0_0_35px_rgba(200,241,105,0.2)] hover:border-lime",
+      topAccentBar: "bg-gradient-to-r from-lime via-lime-dark to-transparent",
+      ambientGlow: "bg-lime/30",
+      quoteBox: "bg-lime text-charcoal border-lime shadow-[0_0_25px_rgba(200,241,105,0.45)]",
+      quoteIcon: "text-charcoal fill-charcoal",
+      storyBadge: "bg-white/10 border-lime/30 text-lime shadow-xs font-bold",
+      ratingBadge: "bg-white/10 border-white/20 text-white shadow-xs",
+      feedbackText: "text-gray-100 font-medium",
+      metricBadge: "bg-lime/20 text-lime border-lime/50 shadow-sm font-bold",
+      metricDot: "bg-lime animate-pulse",
+      clientName: "text-white font-bold",
+      clientCheck: "text-lime",
+      clientDesignation: "text-gray-400",
+      clientLocation: "text-lime font-bold",
+      systemTagLabel: "text-gray-400",
+      systemTagValue: "text-white font-semibold",
+      divider: "border-white/10",
+      imageBorder: "border-white/15",
+    },
+  ];
+
   const testimonials = [
     {
       id: 0,
@@ -1034,129 +1147,136 @@ export default function HomePage() {
 
           {/* 5 Testimonial Cards: Sticky Stacking in the Exact Same Spot */}
           <div className="relative">
-            {testimonials.map((item, index) => (
-              <div
-                key={item.id}
-                className="sticky top-24 sm:top-28 will-change-transform"
-                style={{
-                  zIndex: 10 + index,
-                  marginBottom: index === testimonials.length - 1 ? "2rem" : "50vh",
-                }}
-              >
-                <div className="bg-[#F8F9FA] rounded-3xl p-6 sm:p-10 lg:p-12 border border-gray-200/90 shadow-[0_-16px_45px_rgba(0,0,0,0.1),0_25px_50px_rgba(0,0,0,0.08)] grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center group relative overflow-hidden transition-all duration-300">
-                  {/* Ambient glow on card hover */}
-                  <div className="absolute top-0 right-0 w-80 h-80 bg-lime/10 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {testimonials.map((item, index) => {
+              const theme = TESTIMONIAL_THEMES[index % TESTIMONIAL_THEMES.length];
 
-                  {/* Left Side: Quote, Stars, Feedback, Client Details */}
-                  <div className="flex flex-col justify-between h-full relative z-10">
-                    <div>
-                      {/* Quotation Icon, Story Pill, and Rating */}
-                      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-2xl bg-lime/30 border border-lime/50 flex items-center justify-center text-charcoal shadow-sm group-hover:scale-105 transition-transform duration-200">
-                            <Quote className="w-6 h-6 text-charcoal fill-lime" />
-                          </div>
-                          <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white border border-gray-200 text-charcoal shadow-xs">
-                            Story {String(index + 1).padStart(2, "0")} / 05 • {item.locationShort}
-                          </span>
-                        </div>
+              return (
+                <div
+                  key={item.id}
+                  className="sticky top-24 sm:top-28 will-change-transform"
+                  style={{
+                    zIndex: 10 + index,
+                    marginBottom: index === testimonials.length - 1 ? "2rem" : "50vh",
+                  }}
+                >
+                  <div className={`rounded-3xl p-6 sm:p-10 lg:p-12 border grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center group relative overflow-hidden transition-all duration-300 ${theme.cardWrapper}`}>
+                    {/* Top Subtle Neon Edge Highlight Bar */}
+                    <div className={`absolute top-0 left-0 right-0 h-1.5 ${theme.topAccentBar}`} />
 
-                        {/* 5-Star Row */}
-                        <div className="flex items-center gap-1 bg-white border border-gray-200/80 px-3 py-1.5 rounded-full shadow-sm">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className="w-4 h-4 fill-amber-400 text-amber-400"
-                            />
-                          ))}
-                          <span className="text-xs font-bold text-charcoal ml-1.5">
-                            5.0 Verified
-                          </span>
-                        </div>
-                      </div>
+                    {/* Ambient glow on card hover */}
+                    <div className={`absolute top-0 right-0 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${theme.ambientGlow}`} />
 
-                      {/* Client Feedback Text */}
-                      <p className="text-xl sm:text-2xl lg:text-3xl font-semibold text-charcoal leading-snug tracking-tight">
-                        &ldquo;{item.feedback}&rdquo;
-                      </p>
-
-                      {/* Key Metric Pill with Animated Counter */}
-                      <div className="mt-6">
-                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-charcoal border border-gray-200/90 shadow-sm">
-                          <span className="w-2 h-2 rounded-full bg-lime-dark" />
-                          <span>
-                            {item.savingsPrefix}
-                            <AnimatedCounter
-                              key={item.id}
-                              value={item.savingsAmount}
-                              duration={1.2}
-                            />
-                            {item.savingsSuffix}
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Client Info & System Spec */}
-                    <div className="pt-8 mt-8 border-t border-gray-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    {/* Left Side: Quote, Stars, Feedback, Client Details */}
+                    <div className="flex flex-col justify-between h-full relative z-10">
                       <div>
-                        <h4 className="text-lg font-bold text-charcoal leading-none flex items-center gap-2">
-                          <span>{item.clientName}</span>
-                          <Check className="w-4 h-4 text-lime-dark stroke-[3]" />
-                        </h4>
-                        <p className="text-xs sm:text-sm text-muted mt-1.5">
-                          {item.designation} •{" "}
-                          <span className="text-charcoal font-semibold">
-                            {item.location}
-                          </span>
+                        {/* Quotation Icon, Story Pill, and Rating */}
+                        <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200 border ${theme.quoteBox}`}>
+                              <Quote className={`w-6 h-6 ${theme.quoteIcon}`} />
+                            </div>
+                            <span className={`text-xs uppercase tracking-wider px-3.5 py-1 rounded-full border ${theme.storyBadge}`}>
+                              Story {String(index + 1).padStart(2, "0")} / 05 • {item.locationShort}
+                            </span>
+                          </div>
+
+                          {/* 5-Star Row */}
+                          <div className={`flex items-center gap-1 px-3 py-1.5 rounded-full border ${theme.ratingBadge}`}>
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className="w-4 h-4 fill-amber-400 text-amber-400"
+                              />
+                            ))}
+                            <span className="text-xs font-bold ml-1.5">
+                              5.0 Verified
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Client Feedback Text */}
+                        <p className={`text-xl sm:text-2xl lg:text-3xl leading-snug tracking-tight ${theme.feedbackText}`}>
+                          &ldquo;{item.feedback}&rdquo;
                         </p>
+
+                        {/* Key Metric Pill with Animated Counter */}
+                        <div className="mt-6">
+                          <span className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs border ${theme.metricBadge}`}>
+                            <span className={`w-2 h-2 rounded-full ${theme.metricDot}`} />
+                            <span>
+                              {item.savingsPrefix}
+                              <AnimatedCounter
+                                key={item.id}
+                                value={item.savingsAmount}
+                                duration={1.2}
+                              />
+                              {item.savingsSuffix}
+                            </span>
+                          </span>
+                        </div>
                       </div>
 
-                      <div className="text-left sm:text-right">
-                        <span className="text-[11px] uppercase tracking-wider text-muted font-semibold block">
-                          Installed Architecture
-                        </span>
-                        <span className="text-xs font-bold text-charcoal block mt-0.5">
-                          {item.systemType}
-                        </span>
+                      {/* Client Info & System Spec */}
+                      <div className={`pt-8 mt-8 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${theme.divider}`}>
+                        <div>
+                          <h4 className={`text-lg font-bold leading-none flex items-center gap-2 ${theme.clientName}`}>
+                            <span>{item.clientName}</span>
+                            <Check className={`w-4 h-4 stroke-[3] ${theme.clientCheck}`} />
+                          </h4>
+                          <p className={`text-xs sm:text-sm mt-1.5 ${theme.clientDesignation}`}>
+                            {item.designation} •{" "}
+                            <span className={`font-semibold ${theme.clientLocation}`}>
+                              {item.location}
+                            </span>
+                          </p>
+                        </div>
+
+                        <div className="text-left sm:text-right">
+                          <span className={`text-[11px] uppercase tracking-wider font-semibold block ${theme.systemTagLabel}`}>
+                            Installed Architecture
+                          </span>
+                          <span className={`text-xs font-bold block mt-0.5 ${theme.systemTagValue}`}>
+                            {item.systemType}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Right Side: High-res Rounded Image of actual solar-powered Sri Lankan home */}
-                  <div className="relative rounded-3xl overflow-hidden h-[340px] sm:h-[420px] w-full shadow-md border border-gray-200/80 bg-charcoal group/img">
-                    <Image
-                      src={item.image}
-                      alt={`Solar-powered residential home of ${item.clientName} in ${item.location}`}
-                      fill
-                      unoptimized
-                      priority={index < 2}
-                      className="object-cover object-center group-hover/img:scale-105 transition-transform duration-700"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                    {/* Right Side: High-res Rounded Image of actual solar-powered Sri Lankan home */}
+                    <div className={`relative rounded-3xl overflow-hidden h-[340px] sm:h-[420px] w-full shadow-md border bg-charcoal group/img ${theme.imageBorder}`}>
+                      <Image
+                        src={item.image}
+                        alt={`Solar-powered residential home of ${item.clientName} in ${item.location}`}
+                        fill
+                        unoptimized
+                        priority={index < 2}
+                        className="object-cover object-center group-hover/img:scale-105 transition-transform duration-700"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-                    {/* Verified Badge on Image */}
-                    <div className="absolute top-5 left-5 z-10">
-                      <span className="backdrop-blur-md bg-white/90 border border-white/70 text-charcoal rounded-full py-1.5 px-3.5 text-xs font-bold inline-flex items-center gap-1.5 shadow-sm">
-                        <ShieldCheck className="w-4 h-4 text-lime-dark" />
-                        <span>Verified Vertex System</span>
-                      </span>
-                    </div>
+                      {/* Verified Badge on Image */}
+                      <div className="absolute top-5 left-5 z-10">
+                        <span className="backdrop-blur-md bg-white/90 border border-white/70 text-charcoal rounded-full py-1.5 px-3.5 text-xs font-bold inline-flex items-center gap-1.5 shadow-sm">
+                          <ShieldCheck className="w-4 h-4 text-lime-dark" />
+                          <span>Verified Vertex System</span>
+                        </span>
+                      </div>
 
-                    {/* Sri Lankan Location Tag */}
-                    <div className="absolute bottom-5 left-5 z-10 text-white">
-                      <span className="text-xs uppercase tracking-wider font-semibold text-lime block">
-                        Commissioned Site • Sri Lanka
-                      </span>
-                      <span className="text-base sm:text-lg font-bold">
-                        {item.location}
-                      </span>
+                      {/* Sri Lankan Location Tag */}
+                      <div className="absolute bottom-5 left-5 z-10 text-white">
+                        <span className="text-xs uppercase tracking-wider font-semibold text-lime block">
+                          Commissioned Site • Sri Lanka
+                        </span>
+                        <span className="text-base sm:text-lg font-bold">
+                          {item.location}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
