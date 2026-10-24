@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -10,7 +9,6 @@ import {
   ShieldCheck,
   Zap,
   Award,
-  Users,
   Cpu,
   Target,
   ArrowRight,
@@ -18,43 +16,79 @@ import {
   Sparkles,
   Layers,
   Globe2,
+  Sun,
+  BatteryCharging,
+  Activity,
+  Check,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
-const TEAM = [
+const TECHNICAL_DIVISIONS = [
   {
-    name: "Dr. Ethan Wright",
-    role: "Chief Technology Officer & Lead Solar Engineer",
-    credentials: "PhD Electrical Engineering • NABCEP Master Certified",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
-    bio: "Former Department of Energy solar researcher specializing in microgrid optimization and bifacial photon absorption models.",
+    code: "DIV-01",
+    title: "Solar PV Engineering Division",
+    subtitle: "Design, Shading Analysis & Structural Calculations",
+    icon: Sun,
+    accentIcon: Layers,
+    metric: "99.8% Shading Accuracy",
+    description:
+      "Performs high-resolution 3D rooftop modeling, satellite solar irradiance profiling, and certified wind-load structural engineering. Ensures peak kilowatt yields on tile, Amano, and concrete roofs.",
+    capabilities: [
+      "3D LiDAR & satellite roof profile modeling",
+      "Monsoonal wind-load & structural mounting calculations",
+      "Micro-string simulation for peak photon capture",
+      "Zero-penetration clamp engineering on all roof types",
+    ],
   },
   {
-    name: "Elena Rostova",
-    role: "VP of Engineering & Structural Architecture",
-    credentials: "PE Licensed Structural Engineer • LEED AP BD+C",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
-    bio: "Over 14 years overseeing structural load-bearing calculations, hurricane-resistant mounting, and zero-penetration commercial designs.",
+    code: "DIV-02",
+    title: "Battery & Hybrid Energy Systems Unit",
+    subtitle: "High-Voltage LiFePO4 & Dyness/Deye Integration",
+    icon: BatteryCharging,
+    accentIcon: Zap,
+    metric: "10,000+ Cycle Longevity",
+    description:
+      "Specializes in advanced lithium iron phosphate chemistry, official Dyness battery banks, and Deye hybrid inverters with sub-second automatic transfer switch (ATS) protection.",
+    capabilities: [
+      "High-voltage LiFePO4 & Dyness modular integration",
+      "Sub-second microgrid islanding switchover",
+      "Active thermal monitoring & fireproof cell architecture",
+      "Direct BMS protocol pairing with hybrid inverters",
+    ],
   },
   {
-    name: "Marcus Vance",
-    role: "Director of Battery Storage & Grid Modernization",
-    credentials: "MSc Power Electronics • IEEE Senior Member",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
-    bio: "Pioneered sub-second microgrid islanding switchgear and high-capacity LiFePO4 battery arbitrage algorithms across Texas.",
+    code: "DIV-03",
+    title: "Certified Installation & QC Crew",
+    subtitle: "CEB Compliance, Surge Protection & Safety",
+    icon: ShieldCheck,
+    accentIcon: CheckCircle2,
+    metric: "100% CEB Standards",
+    description:
+      "Our field crew executes strict Ceylon Electricity Board (CEB) and LECO interconnection standards, high-energy surge arrestors, and comprehensive dual-stage pre-commissioning testing.",
+    capabilities: [
+      "Strict CEB & LECO compliance certification",
+      "Class-I & Class-II lightning and surge protection",
+      "Low-resistance copper earth-rod grounding",
+      "Dual-stage thermographic commissioning audit",
+    ],
   },
   {
-    name: "Sarah Linfield",
-    role: "Head of Concierge Operations & Client Telemetry",
-    credentials: "Certified Energy Manager (CEM) • NABCEP Associate",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-    bio: "Manages our 24/7 Austin telemetry center, tracking real-time generation metrics for over 850 residential and commercial solar arrays.",
+    code: "DIV-04",
+    title: "24/7 Operations & Maintenance Support",
+    subtitle: "Remote Inverter Diagnostics & Rapid Dispatch",
+    icon: Activity,
+    accentIcon: Cpu,
+    metric: "< 4-Hour Rapid Dispatch",
+    description:
+      "Round-the-clock telemetry monitoring tracks solar array generation string-by-string. Automated health flags trigger rapid-dispatch technical support across Sri Lanka.",
+    capabilities: [
+      "24/7 real-time cloud telemetry & health alerts",
+      "Remote inverter firmware diagnostics & tuning",
+      "Rapid-dispatch island-wide field technicians",
+      "Direct manufacturer warranty claim execution",
+    ],
   },
 ];
 
@@ -74,7 +108,7 @@ const PARTNERS = [
   {
     name: "Jinko Solar",
     category: "Tiger Neo N-Type Bifacial Panels",
-    desc: "Ultra-low degradation rates (-0.40% annual) engineered to withstand extreme ambient temperatures.",
+    desc: "Ultra-low degradation rates (-0.40% annual) engineered to withstand extreme tropical temperatures.",
     tag: "Global Volume Leader",
   },
   {
@@ -90,38 +124,38 @@ const PARTNERS = [
     tag: "Hybrid Specialist",
   },
   {
-    name: "Tesla Energy",
-    category: "Powerwall & Gateway Architecture",
-    desc: "Industry-standard AC-coupled domestic energy storage with seamless app control and Storm Watch automation.",
-    tag: "Ecosystem Partner",
+    name: "Dyness",
+    category: "High-Performance LiFePO4 Energy Storage",
+    desc: "Modular lithium iron phosphate battery banks with 10,000+ cycle life, certified BMS integration, and thermal runaway protection.",
+    tag: "Official Battery Partner",
   },
 ];
 
 const MILESTONES = [
   {
-    year: "2018",
-    title: "Vertex Founded in Austin, TX",
-    desc: "Established by two former solar researchers with a pledge to ban low-grade Tier-2 equipment and provide 100% transparent solar pricing.",
-  },
-  {
     year: "2020",
-    title: "250+ Installations & Battery Launch",
-    desc: "Expanded into whole-home battery backup systems and integrated real-time micro-inverter telemetry into every installation.",
+    title: "Vertex Home Solutions Founded",
+    desc: "Established with a bold pledge: engineer resilient Off-Grid solar systems and eliminate soaring electricity tariffs for Sri Lankan homes.",
   },
   {
     year: "2022",
-    title: "Global Tier-1 Hardware Alliances",
-    desc: "Secured direct master distribution partnerships with Longi, Huawei, Growatt, and Deye to guarantee factory-direct warranties.",
+    title: "LiFePO4 Battery & Hybrid Unit",
+    desc: "Expanded into high-capacity lithium iron phosphate battery storage to deliver 100% blackout immunity during national grid shedding.",
+  },
+  {
+    year: "2023",
+    title: "Tier-1 Hardware Alliances",
+    desc: "Formed direct integration partnerships with Jinko Solar and Dyness Energy Storage, guaranteeing factory-backed 10-year hardware warranties.",
   },
   {
     year: "2024",
-    title: "Autonomous AI Telemetry Center",
-    desc: "Launched our dedicated Network Operations Center monitoring cell strings for 10+ megawatts of clean solar capacity every second.",
+    title: "Over LKR 120M+ Saved in Bills",
+    desc: "Milestone achievement: our active residential and commercial arrays surpassed LKR 120,000,000 in cumulative electricity bill savings.",
   },
   {
     year: "2026",
-    title: "850+ Homes & 14.2 MW Installed",
-    desc: "Proudly recognized as Texas's highest-rated solar & battery installer with a 99.8% customer satisfaction rating and 25-year warranty trust.",
+    title: "500+ Off-Grid Installations",
+    desc: "Surpassed 500+ completed Off-Grid projects across Sri Lanka with 0% installment plans supported by major commercial partner banks.",
   },
 ];
 
@@ -156,6 +190,42 @@ export default function AboutPage() {
               high-pressure commission salespeople.
             </p>
           </FadeIn>
+
+          {/* Milestone Stats Bar */}
+          <FadeIn delay={0.2} className="mt-14 bg-[#F8F9FA] border border-gray-200/80 rounded-3xl p-6 sm:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center shadow-sm">
+            <div>
+              <span className="text-3xl sm:text-4xl font-extrabold text-charcoal block">
+                <AnimatedCounter value={120} prefix="LKR " suffix="M+" />
+              </span>
+              <span className="text-xs text-muted font-medium uppercase tracking-wider mt-1 block">
+                Saved in Electricity Bills
+              </span>
+            </div>
+            <div>
+              <span className="text-3xl sm:text-4xl font-extrabold text-charcoal block">
+                <AnimatedCounter value={500} suffix="+" />
+              </span>
+              <span className="text-xs text-muted font-medium uppercase tracking-wider mt-1 block">
+                Off-Grid Installations
+              </span>
+            </div>
+            <div>
+              <span className="text-3xl sm:text-4xl font-extrabold text-charcoal block">
+                <AnimatedCounter value={100} suffix="%" />
+              </span>
+              <span className="text-xs text-muted font-medium uppercase tracking-wider mt-1 block">
+                Outage & Blackout Protection
+              </span>
+            </div>
+            <div>
+              <span className="text-3xl sm:text-4xl font-extrabold text-charcoal block text-lime-dark bg-charcoal rounded-2xl py-1 inline-block px-3">
+                10-25 Yrs
+              </span>
+              <span className="text-xs text-muted font-medium uppercase tracking-wider mt-1 block">
+                Hardware Warranty
+              </span>
+            </div>
+          </FadeIn>
         </section>
 
         {/* ========================================================================= */}
@@ -175,7 +245,7 @@ export default function AboutPage() {
                 <p className="mt-3 text-sm sm:text-base text-muted leading-relaxed">
                   To eliminate electricity bill anxiety by empowering homeowners
                   and businesses with Tier-1 solar hardware, blackout-proof
-                  battery storage, and 25-year guaranteed return on investment.
+                  battery storage, and long-term guaranteed return on investment.
                 </p>
               </div>
 
@@ -205,7 +275,7 @@ export default function AboutPage() {
 
               <div className="mt-6 pt-6 border-t border-white/10 flex items-center gap-2 text-xs font-semibold text-lime">
                 <Sparkles className="w-4 h-4" />
-                <span>25-Year Full System & Labor Warranty</span>
+                <span>10-25 Year Hardware & Installation Warranty</span>
               </div>
             </FadeIn>
 
@@ -219,87 +289,150 @@ export default function AboutPage() {
                   Grid Autonomy
                 </h3>
                 <p className="mt-3 text-sm sm:text-base text-charcoal/85 leading-relaxed font-medium">
-                  Extreme weather and utility rate hikes are becoming the new
-                  norm. Our hybrid systems insulate your family from grid
-                  blackouts and electricity tariff inflation forever.
+                  Utility rate hikes and power cuts are disruptive to family life and business.
+                  Our hybrid systems insulate your property from grid blackouts and electricity
+                  tariff inflation forever.
                 </p>
               </div>
 
               <div className="mt-6 pt-6 border-t border-black/10 flex items-center gap-2 text-xs font-bold text-charcoal">
                 <Globe2 className="w-4 h-4 text-charcoal" />
-                <span><AnimatedCounter value={14.2} decimals={1} suffix="+ Megawatts" /> Deployed Across the US</span>
+                <span>Over LKR 120M+ Saved Across Sri Lanka</span>
               </div>
             </FadeIn>
           </div>
         </section>
 
         {/* ========================================================================= */}
-        {/* CERTIFIED ENGINEERING TEAM SHOWCASE                                       */}
+        {/* OUR TECHNICAL DIVISIONS & ENGINEERING EXCELLENCE (NO HUMAN PHOTOS/NAMES)   */}
         {/* ========================================================================= */}
         <section className="py-20 bg-surface/50 border-t border-gray-200/70">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn className="flex flex-col md:flex-row md:items-end justify-between mb-14">
               <div>
                 <PillBadge variant="lime" className="mb-3">
-                  Certified Leadership
+                  Engineering Excellence
                 </PillBadge>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-charcoal">
-                  Meet Our Engineering Team
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-charcoal">
+                  Our Technical Divisions & Engineering Excellence
                 </h2>
               </div>
               <p className="text-muted text-sm sm:text-base max-w-md mt-4 md:mt-0">
-                Every Vertex project is engineered, inspected, and commissioned
-                by licensed professional engineers and NABCEP-certified masters.
+                Every Vertex system is designed, audited, and commissioned by specialized
+                technical units operating under strict Ceylon Electricity Board (CEB) and IEC standards.
               </p>
             </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {TEAM.map((member, idx) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 25 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-2xl hover:border-lime hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 flex flex-col justify-between group"
-                >
-                  <div>
-                    {/* Portrait Photo */}
-                    <div className="relative h-72 w-full bg-charcoal overflow-hidden">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        unoptimized
-                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 25vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+              {TECHNICAL_DIVISIONS.map((division, idx) => {
+                const Icon = division.icon;
+                const AccentIcon = division.accentIcon;
 
-                      <div className="absolute bottom-4 left-4 right-4 z-10 text-white">
-                        <span className="text-[11px] uppercase tracking-wider font-semibold text-lime block">
-                          Verified Specialist
+                return (
+                  <motion.div
+                    key={division.code}
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+                    className="bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-2xl hover:border-lime transition-all duration-300 flex flex-col justify-between group"
+                  >
+                    <div>
+                      {/* 3D-Styled Glassmorphic Isometric Visual Canvas */}
+                      <div className="relative h-60 w-full bg-[#141619] overflow-hidden flex items-center justify-center p-6 border-b border-gray-100">
+                        {/* Layered background radial and lime gradient glow */}
+                        <div className="absolute -top-12 -right-12 w-48 h-48 bg-lime/20 rounded-full blur-3xl pointer-events-none" />
+                        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-lime/10 rounded-full blur-2xl pointer-events-none" />
+
+                        {/* Subtle isometric background grid pattern */}
+                        <div
+                          className="absolute inset-0 opacity-[0.08] pointer-events-none"
+                          style={{
+                            backgroundImage: `radial-gradient(circle at 1px 1px, #C8F169 1px, transparent 0)`,
+                            backgroundSize: "20px 20px",
+                          }}
+                        />
+
+                        {/* Top Division Code & Status */}
+                        <div className="absolute top-4 left-4 z-10">
+                          <span className="backdrop-blur-md bg-white/10 text-lime border border-lime/30 font-mono text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">
+                            {division.code}
+                          </span>
+                        </div>
+
+                        <div className="absolute top-4 right-4 z-10">
+                          <span className="flex items-center gap-1.5 backdrop-blur-md bg-white/5 border border-white/10 text-[10px] font-semibold text-gray-300 px-2.5 py-1 rounded-full">
+                            <span className="w-1.5 h-1.5 rounded-full bg-lime animate-pulse" />
+                            Specialized Unit
+                          </span>
+                        </div>
+
+                        {/* 3D Isometric Floating Stage with layered glass pedestals */}
+                        <div className="relative flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                          {/* Base Pedestal (tilted glass plate) */}
+                          <div className="w-28 h-28 rounded-3xl bg-white/[0.04] border border-white/10 backdrop-blur-md transform rotate-[-12deg] skew-y-3 shadow-2xl transition-transform duration-500 group-hover:rotate-0" />
+
+                          {/* Middle Glowing Lime Glass Tile */}
+                          <div className="absolute w-22 h-22 rounded-2xl bg-gradient-to-br from-lime/30 via-lime/10 to-transparent border border-lime/50 backdrop-blur-xl shadow-[0_12px_32px_rgba(200,241,105,0.3)] transform rotate-[6deg] transition-transform duration-500 group-hover:rotate-0 flex items-center justify-center" />
+
+                          {/* Primary 3D Icon Container */}
+                          <div className="absolute w-16 h-16 rounded-2xl bg-charcoal/90 border border-lime/70 shadow-xl flex items-center justify-center text-lime group-hover:scale-110 group-hover:border-lime transition-all duration-300">
+                            <Icon className="w-8 h-8 stroke-[2.2] text-lime drop-shadow-[0_2px_8px_rgba(200,241,105,0.6)]" />
+                          </div>
+
+                          {/* Secondary micro badge floating on bottom-right */}
+                          <div className="absolute -bottom-2 -right-3 w-8 h-8 rounded-xl bg-lime text-charcoal border border-charcoal/20 flex items-center justify-center shadow-lg">
+                            <AccentIcon className="w-4 h-4 stroke-[2.5]" />
+                          </div>
+                        </div>
+
+                        {/* Bottom Metric Bar */}
+                        <div className="absolute bottom-3 left-4 right-4 z-10 flex items-center justify-between text-xs">
+                          <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                            Benchmark
+                          </span>
+                          <span className="font-mono text-[11px] font-extrabold text-lime bg-black/50 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-lime/30">
+                            {division.metric}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Content Body */}
+                      <div className="p-6">
+                        <span className="text-[10px] font-bold text-lime-dark uppercase tracking-wider bg-charcoal px-3 py-1 rounded-full inline-block">
+                          {division.subtitle}
                         </span>
-                        <h3 className="text-xl font-bold leading-tight">
-                          {member.name}
+
+                        <h3 className="text-xl font-bold text-charcoal mt-3 leading-snug tracking-tight">
+                          {division.title}
                         </h3>
+
+                        <p className="text-xs text-muted mt-2.5 leading-relaxed">
+                          {division.description}
+                        </p>
+
+                        {/* Technical Capabilities List */}
+                        <ul className="mt-4 space-y-2 border-t border-gray-100 pt-3 text-xs text-charcoal/90">
+                          {division.capabilities.map((cap, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-lime-dark shrink-0 mt-0.5" />
+                              <span className="leading-snug">{cap}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
 
-                    <div className="p-6">
-                      <p className="text-xs font-bold text-lime-dark uppercase tracking-wider bg-charcoal px-3 py-1 rounded-full inline-block">
-                        {member.role}
-                      </p>
-                      <p className="text-xs font-semibold text-muted mt-3">
-                        {member.credentials}
-                      </p>
-                      <p className="text-xs text-charcoal/80 mt-3 leading-relaxed">
-                        {member.bio}
-                      </p>
+                    <div className="p-6 pt-0">
+                      <div className="py-2 px-3 rounded-xl bg-surface border border-gray-100 text-[11px] font-semibold text-charcoal/80 flex items-center justify-between">
+                        <span>CEB Compliance</span>
+                        <span className="text-lime-dark font-bold font-mono">Verified</span>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -317,7 +450,7 @@ export default function AboutPage() {
             </h2>
             <p className="mt-4 text-muted text-base sm:text-lg">
               We exclusively install industry-standard solar panels, inverters, and
-              energy banks with 25-year manufacturer-backed warranties.
+              energy banks with 10-25 year manufacturer-backed warranties.
             </p>
           </FadeIn>
 
@@ -371,7 +504,7 @@ export default function AboutPage() {
                 Company Milestones
               </h2>
               <p className="mt-3 text-muted text-sm sm:text-base">
-                Building a clean energy legacy one rooftop and microgrid at a time.
+                Building Sri Lanka&apos;s clean energy legacy one rooftop and off-grid system at a time.
               </p>
             </FadeIn>
 

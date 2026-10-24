@@ -15,7 +15,6 @@ import {
   Check,
   Sparkles,
   Zap,
-  DollarSign,
   Sun,
   Home,
   Layers,

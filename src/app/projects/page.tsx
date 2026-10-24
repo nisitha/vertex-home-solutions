@@ -23,116 +23,122 @@ import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 const PROJECTS = [
   {
     id: 1,
-    title: "The Travis Hills Residence",
+    title: "Colombo 07 Executive Residence",
     category: "Residential",
-    location: "Austin, Texas",
-    capacity: "12.4 kW Solar Array",
-    battery: "27 kWh Tesla Powerwall Storage",
-    carbonOffset: "9.2 Tons CO₂ / year",
+    location: "Colombo 07, Western Province",
+    capacity: "5kW Off-Grid Hybrid System",
+    battery: "5kW Dyness LiFePO4 Storage",
+    carbonOffset: "6.8 Tons CO₂ / year",
     year: "2025",
     image:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
     description:
-      "Full rooftop integration featuring 28 all-black monocrystalline bifacial panels with dual home battery backup for 100% off-grid reliability.",
+      "Turnkey 5kW Hybrid Inverter setup paired with 8x 640W Jinko solar panels and 5kW Dyness battery storage. Delivers 100% blackout immunity and zero electricity bills for luxury residential living.",
     stats: {
-      annualGeneration: "16,800 kWh",
-      monthlySavings: "$310",
-      paybackPeriod: "4.8 Years",
+      investment: "LKR 1.72M",
+      annualGeneration: "7,440 kWh",
+      monthlySavings: "~LKR 48,000",
+      paybackPeriod: "3.0 Years",
     },
   },
   {
     id: 2,
-    title: "Apex Logistics Distribution Hub",
+    title: "Biyagama Logistics Distribution Hub",
     category: "Commercial",
-    location: "Dallas, Texas",
-    capacity: "450 kW Commercial Rooftop",
-    battery: "120 kWh Industrial Peak Shaving",
-    carbonOffset: "320 Tons CO₂ / year",
+    location: "Biyagama Export Zone, Western Province",
+    capacity: "40kW Off-Grid Commercial Microgrid",
+    battery: "60 kWh Industrial Battery Bank",
+    carbonOffset: "48.5 Tons CO₂ / year",
     year: "2025",
     image:
       "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=1200&q=80",
     description:
-      "Industrial microgrid lowering peak demand charges by 62% for a 120,000 sq ft temperature-controlled logistics center.",
+      "Dual commercial inverters coupled with industrial high-capacity storage banks, completely eliminating daytime peak CEB commercial tariffs for a 35,000 sq ft temperature-controlled export warehouse.",
     stats: {
-      annualGeneration: "620,000 kWh",
-      monthlySavings: "$8,400",
-      paybackPeriod: "3.9 Years",
+      investment: "LKR 5.91M",
+      annualGeneration: "58,000 kWh",
+      monthlySavings: "~LKR 370,000",
+      paybackPeriod: "2.8 Years",
     },
   },
   {
     id: 3,
-    title: "Hill Country Ranch & Microgrid",
+    title: "Kandy Hill Country Eco-Estate",
     category: "Battery Storage",
-    location: "Fredericksburg, Texas",
-    capacity: "24.8 kW Ground Array",
-    battery: "60 kWh LiFePO4 Energy Bank",
-    carbonOffset: "18.4 Tons CO₂ / year",
-    year: "2024",
+    location: "Kandy, Central Province",
+    capacity: "10kW Off-Grid Solar Package",
+    battery: "16kW LiFePO4 High-Cycle Battery",
+    carbonOffset: "12.4 Tons CO₂ / year",
+    year: "2025",
     image:
       "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80",
     description:
-      "Complete autonomous ranch energy system capable of operating 7+ consecutive days completely disconnected from the ERCOT utility grid.",
+      "14x 640W Jinko panels paired with a 10kW hybrid inverter and 16kW LiFePO4 storage bank, ensuring continuous autonomous power across frequent mountainous weather and grid blackouts.",
     stats: {
-      annualGeneration: "36,400 kWh",
-      monthlySavings: "$580",
-      paybackPeriod: "5.1 Years",
+      investment: "LKR 2.35M",
+      annualGeneration: "15,000 kWh",
+      monthlySavings: "~LKR 85,000",
+      paybackPeriod: "2.3 Years",
     },
   },
   {
     id: 4,
-    title: "Modern Solara Estate Villa",
+    title: "Battaramulla Modern Family Villa",
     category: "Residential",
-    location: "Scottsdale, Arizona",
-    capacity: "18.2 kW Architectural Solar",
-    battery: "30 kWh Enphase IQ Storage",
-    carbonOffset: "14.1 Tons CO₂ / year",
-    year: "2025",
+    location: "Battaramulla, Western Province",
+    capacity: "5kW Off-Grid Solar Package",
+    battery: "5kW Lithium Storage Battery",
+    carbonOffset: "6.4 Tons CO₂ / year",
+    year: "2024",
     image:
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
     description:
-      "Zero-penetration standing seam metal roof mounts powering dual EV chargers, geothermal heat pumps, and a swimming pool.",
+      "8x 740W Jinko panels with 5kW inverter and 5kW battery. Powers inverter air conditioners, water pumps, refrigerators, and remote work setup with zero monthly electricity bills.",
     stats: {
-      annualGeneration: "28,200 kWh",
-      monthlySavings: "$440",
-      paybackPeriod: "4.5 Years",
+      investment: "LKR 1.35M",
+      annualGeneration: "7,200 kWh",
+      monthlySavings: "~LKR 42,000",
+      paybackPeriod: "2.7 Years",
     },
   },
   {
     id: 5,
-    title: "Westlake Tech Campus Microgrid",
+    title: "Negombo Coastal Boutique Hotel",
     category: "Commercial",
-    location: "Austin, Texas",
-    capacity: "280 kW Carport & Rooftop PV",
-    battery: "90 kWh Smart Dispatch Buffer",
-    carbonOffset: "195 Tons CO₂ / year",
-    year: "2024",
+    location: "Negombo, Western Province",
+    capacity: "20kW Off-Grid Commercial Package",
+    battery: "30 kWh Modular Battery Storage",
+    carbonOffset: "26.8 Tons CO₂ / year",
+    year: "2025",
     image:
       "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
     description:
-      "Solar canopy structure providing shade for 80 corporate parking bays with 20 integrated Level-2 electric vehicle charge points.",
+      "Commercial-grade rooftop array eliminating daytime commercial air conditioning expenses for 16 luxury guest suites, commercial kitchen refrigeration, and pool circulation pumps.",
     stats: {
-      annualGeneration: "390,000 kWh",
-      monthlySavings: "$5,100",
-      paybackPeriod: "4.1 Years",
+      investment: "LKR 2.95M",
+      annualGeneration: "29,200 kWh",
+      monthlySavings: "~LKR 190,000",
+      paybackPeriod: "2.6 Years",
     },
   },
   {
     id: 6,
-    title: "Canyon Lake Off-Grid Retreat",
+    title: "Kurunegala Commercial Supermarket",
     category: "Battery Storage",
-    location: "New Braunfels, Texas",
-    capacity: "15.6 kW Bifacial Rooftop",
-    battery: "45 kWh Modular LiFePO4",
-    carbonOffset: "11.8 Tons CO₂ / year",
-    year: "2025",
+    location: "Kurunegala, North Western Province",
+    capacity: "20kW Commercial Hybrid System",
+    battery: "32 kWh High-Cycle LiFePO4 Bank",
+    carbonOffset: "25.2 Tons CO₂ / year",
+    year: "2024",
     image:
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
     description:
-      "Off-grid lakefront sanctuary powered by high-efficiency bifacial solar and intelligent battery storage with generator auto-start backup.",
+      "Heavy-duty commercial hybrid installation preventing chiller compressor failure and protecting perishable food inventory against unpredictable provincial power outages.",
     stats: {
-      annualGeneration: "22,500 kWh",
-      monthlySavings: "$360",
-      paybackPeriod: "5.0 Years",
+      investment: "LKR 2.95M",
+      annualGeneration: "28,800 kWh",
+      monthlySavings: "~LKR 185,000",
+      paybackPeriod: "2.6 Years",
     },
   },
 ];
@@ -168,12 +174,12 @@ export default function ProjectsPage() {
               <span className="relative inline-block px-3 py-1 bg-lime text-charcoal rounded-2xl shadow-sm rotate-[-1deg]">
                 installed
               </span>{" "}
-              across North America.
+              across Sri Lanka.
             </h1>
 
             <p className="mt-6 text-lg sm:text-xl text-muted max-w-2xl font-normal leading-relaxed">
               Explore our verified residential, commercial, and off-grid battery
-              installations delivering guaranteed kilowatt output and lifelong
+              installations delivering guaranteed kilowatt output, zero power cuts, and lifelong
               savings.
             </p>
           </FadeIn>
@@ -182,18 +188,18 @@ export default function ProjectsPage() {
           <FadeIn delay={0.2} className="mt-14 bg-[#F8F9FA] border border-gray-200/80 rounded-3xl p-6 sm:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center shadow-sm">
             <div>
               <span className="text-3xl sm:text-4xl font-extrabold text-charcoal block">
-                <AnimatedCounter value={850} suffix="+" />
+                <AnimatedCounter value={500} suffix="+" />
               </span>
               <span className="text-xs text-muted font-medium uppercase tracking-wider mt-1 block">
-                Turnkey Homes Installed
+                Off-Grid Installations
               </span>
             </div>
             <div>
               <span className="text-3xl sm:text-4xl font-extrabold text-charcoal block">
-                <AnimatedCounter value={14.2} decimals={1} suffix=" MW" />
+                <AnimatedCounter value={120} prefix="LKR " suffix="M+" />
               </span>
               <span className="text-xs text-muted font-medium uppercase tracking-wider mt-1 block">
-                Total Capacity Commissioned
+                Saved in Electricity Bills
               </span>
             </div>
             <div>
@@ -314,15 +320,19 @@ export default function ProjectsPage() {
                         </div>
                       </div>
 
-                      {/* Mini ROI row */}
-                      <div className="mt-4 grid grid-cols-2 gap-2 text-center text-xs">
-                        <div className="bg-[#F9FBE7] p-2 rounded-xl border border-lime/40">
-                          <span className="text-[10px] text-muted block uppercase">Savings</span>
-                          <span className="font-bold text-charcoal">{project.stats.monthlySavings}/mo</span>
+                      {/* Real LKR Investment & Savings Metrics */}
+                      <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
+                        <div className="bg-[#F9FBE7] p-2 rounded-xl border border-lime/50 flex flex-col justify-center">
+                          <span className="text-[9px] font-bold text-charcoal/70 uppercase tracking-wider block">Investment</span>
+                          <span className="font-extrabold text-charcoal text-[11px] sm:text-xs mt-0.5">{project.stats.investment}</span>
                         </div>
-                        <div className="bg-[#F9FBE7] p-2 rounded-xl border border-lime/40">
-                          <span className="text-[10px] text-muted block uppercase">Payback</span>
-                          <span className="font-bold text-charcoal">{project.stats.paybackPeriod}</span>
+                        <div className="bg-[#F9FBE7] p-2 rounded-xl border border-lime/50 flex flex-col justify-center">
+                          <span className="text-[9px] font-bold text-charcoal/70 uppercase tracking-wider block">Savings</span>
+                          <span className="font-extrabold text-charcoal text-[11px] sm:text-xs mt-0.5">{project.stats.monthlySavings}/mo</span>
+                        </div>
+                        <div className="bg-[#F9FBE7] p-2 rounded-xl border border-lime/50 flex flex-col justify-center">
+                          <span className="text-[9px] font-bold text-charcoal/70 uppercase tracking-wider block">Payback</span>
+                          <span className="font-extrabold text-charcoal text-[11px] sm:text-xs mt-0.5">{project.stats.paybackPeriod}</span>
                         </div>
                       </div>
                     </div>
