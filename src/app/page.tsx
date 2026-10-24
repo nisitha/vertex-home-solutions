@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
@@ -30,10 +30,11 @@ import {
   HelpCircle,
   MessageCircle,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, Variants } from "framer-motion";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { SolarCalculator } from "@/components/SolarCalculator";
+import { SolarPackages } from "@/components/SolarPackages";
 
 // High-resolution verified solar imagery from Unsplash
 const IMAGES = {
@@ -81,18 +82,88 @@ const IMAGES = {
 };
 
 export default function HomePage() {
+  // Scroll parallax for Hero
+  const { scrollY } = useScroll();
+  const heroParallaxY = useTransform(scrollY, [0, 500], [0, 80]);
+
   // Accordion state: Index 1 ('Intelligent Energy Optimization') open by default
   const [activeAccordion, setActiveAccordion] = useState<number>(1);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [dragWidth, setDragWidth] = useState(0);
+  const [carouselX, setCarouselX] = useState(0);
 
   // FAQ Accordion State (First question open by default)
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  useEffect(() => {
+    const updateWidth = () => {
+      if (carouselRef.current) {
+        const fullWidth = carouselRef.current.scrollWidth;
+        const visibleWidth = carouselRef.current.offsetWidth;
+        setDragWidth(Math.max(0, fullWidth - visibleWidth));
+      }
+    };
+    updateWidth();
+    const timer = setTimeout(updateWidth, 500);
+    window.addEventListener("resize", updateWidth);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", updateWidth);
+    };
+  }, []);
+
   const handleScrollCarousel = (direction: "left" | "right") => {
-    if (carouselRef.current) {
-      const scrollAmount = direction === "left" ? -400 : 400;
-      carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    const cardStep = 404;
+    if (direction === "left") {
+      setCarouselX((prev) => Math.min(prev + cardStep, 0));
+    } else {
+      setCarouselX((prev) => Math.max(prev - cardStep, -dragWidth));
     }
+  };
+
+  const headlineWords = "Brighter Future Begins with Clean Power".split(" ");
+  const headlineVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.15,
+      },
+    },
+  };
+  const wordVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.65,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
+  const bentoContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+      },
+    },
+  };
+
+  const bentoCardVariants: Variants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
   };
 
   const accordionItems = [
@@ -119,11 +190,11 @@ export default function HomePage() {
     {
       id: 2,
       number: "03",
-      title: "Seamless Grid & Battery Integration",
+      title: "Seamless Battery Storage & Power Switching",
       content:
-        "Bi-directional smart switching dynamically directs solar power between household circuits, high-density battery storage, and utility net-metering without a millisecond of voltage flicker.",
+        "Bi-directional smart switching dynamically directs solar power between household circuits and high-density battery storage without a millisecond of voltage flicker, ensuring 100% whole-home blackout immunity.",
       image: IMAGES.accordionIntegration,
-      metricBadge: "Zero-Flicker Interconnect",
+      metricBadge: "Zero-Flicker Switchover",
       icon: Layers,
     },
     {
@@ -156,7 +227,7 @@ export default function HomePage() {
       description:
         "Custom-tailored rooftop arrays designed for maximum aesthetic integration, hurricane-grade mounting, and guaranteed 25-year energy production.",
       image: IMAGES.serviceResidential,
-      features: ["Tier-1 Monocrystalline", "Zero Penetration Risk", "Net-Metering Setup"],
+      features: ["Tier-1 Monocrystalline", "Zero Penetration Risk", "Off-Grid Battery Setup"],
       icon: Sun,
     },
     {
@@ -191,10 +262,10 @@ export default function HomePage() {
     },
     {
       id: 5,
-      title: "System Maintenance & Net-Metering Support",
+      title: "System Maintenance & Battery Health Telemetry",
       tag: "Lifetime Protection",
       description:
-        "Proactive cloud telemetry monitoring, annual thermal panel diagnostics, inverter firmware upgrades, and complete utility interconnection paperwork.",
+        "Proactive cloud telemetry monitoring, annual thermal panel diagnostics, inverter firmware upgrades, and complete battery cycle health management.",
       image: IMAGES.serviceMaintenance,
       features: ["24/7 Telemetry Alerting", "Rapid Field Dispatch", "Annual Diagnostics"],
       icon: Activity,
@@ -205,16 +276,16 @@ export default function HomePage() {
     {
       id: 0,
       feedback:
-        "With recent CEB electricity tariff revisions, our monthly bill crossed LKR 68,000. Vertex designed and commissioned a 10 kW On-Grid system in just 2 days. Our last three electricity bills have been practically zero, with CEB net-metering credits accumulating every month!",
+        "With recent electricity tariff revisions and unpredictable load shedding, our monthly utility expense was unbearable. Vertex designed and commissioned a 10 kW Off-Grid Hybrid system with 16kW battery storage in just 2 days. Our bills dropped to zero, and we have 24/7 uninterrupted power!",
       clientName: "Eng. Rohan Dissanayake",
       designation: "Chartered Civil Engineer & Homeowner",
       location: "Colombo 07, Cinnamon Gardens",
       locationShort: "Colombo 07",
       savingsAmount: 65000,
       savingsPrefix: "Saved LKR ",
-      savingsSuffix: "/month • 10 kW CEB Net Metering",
+      savingsSuffix: "/month • 10 kW Off-Grid 24/7 Autonomy",
       image: IMAGES.homeRohan,
-      systemType: "10 kW Tier-1 Bifacial Array + Huawei Smart Inverter",
+      systemType: "10 kW Hybrid Inverter + 16 kW LiFePO4 Storage + 14x Jinko Panels",
     },
     {
       id: 1,
@@ -247,16 +318,16 @@ export default function HomePage() {
     {
       id: 3,
       feedback:
-        "Vertex took complete ownership of all CEB approvals, net-accounting documentation, and the bi-directional meter changeover. We didn't have to visit CEB offices even once. The marine-grade anodized aluminum mounts are performing flawlessly in coastal air.",
+        "Vertex took complete ownership of our solar engineering, safety switchover compliance, and battery commissioning. We didn't have to worry about power disruptions once during our peak guest season. The marine-grade anodized aluminum mounts and Off-Grid batteries are performing flawlessly.",
       clientName: "Chaminda & Thilini Jayasuriya",
       designation: "Boutique Villa Owners",
       location: "Galle Fort, Southern Province",
       locationShort: "Galle",
       savingsAmount: 560000,
       savingsPrefix: "LKR ",
-      savingsSuffix: " Annual Net Utility Savings",
+      savingsSuffix: " Annual Utility Savings",
       image: IMAGES.homeChaminda,
-      systemType: "8.2 kW Tile Roof Marine Array + Growatt Smart Inverter",
+      systemType: "8.2 kW Off-Grid Marine Array + Hybrid Storage",
     },
     {
       id: 4,
@@ -279,19 +350,19 @@ export default function HomePage() {
       id: 0,
       question: "How long does a Vertex Home Solutions solar installation take?",
       answer:
-        "Most residential rooftop installations are physically completed within 1 to 2 business days. The entire turnkey process—including preliminary satellite roof modeling, local HOA and municipal permitting, and utility net-metering interconnection—typically takes 2 to 4 weeks. Our dedicated project management team handles all permits and utility filings on your behalf.",
+        "Most residential rooftop installations are physically completed within 1 to 2 business days. The entire turnkey process—including preliminary roof engineering, hardware delivery, off-grid battery setup, and safety compliance testing—is completed swiftly by our certified engineers.",
     },
     {
       id: 1,
-      question: "Will solar panels really reduce my monthly electricity bill?",
+      question: "Will an Off-Grid solar system eliminate my electricity bills and power cuts?",
       answer:
-        "Yes, substantially. The vast majority of Vertex customers experience an immediate 70% to 95% reduction in their monthly electric utility charges. When paired with high-capacity battery storage to avoid peak time-of-use tariffs, many households achieve near-zero net electricity expenditures and generate credit by exporting surplus energy back to the grid.",
+        "Yes, completely. Our 100% Off-Grid and Off-Grid Hybrid packages are designed to disconnect your essential or whole-home circuits from grid dependence. Paired with high-capacity LiFePO4 battery storage, you enjoy zero electricity bills and zero power outages 24/7.",
     },
     {
       id: 2,
       question: "Does Vertex offer financing, bank loans, or installment plans?",
       answer:
-        "Absolutely. We offer flexible $0-down solar financing options, including fixed-rate solar loans with terms from 10 to 25 years and zero prepayment penalties. In most situations, your monthly solar payment is noticeably lower than your previous average electric bill, ensuring immediate savings without upfront capital.",
+        "Absolutely. We offer 0% interest credit card installment plans through leading partner banks (HNB, Commercial Bank, NDB, Union Bank, DFCC Bank, and Seylan Bank), as well as customized solar loans. In most situations, your monthly installment is noticeably lower than your previous electric bill, ensuring immediate savings without upfront capital.",
     },
     {
       id: 3,
@@ -318,12 +389,13 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section className="relative px-2 sm:px-4">
           <div className="m-4 rounded-3xl overflow-hidden relative min-h-[85vh] bg-[#071322] flex flex-col justify-between p-8 md:p-16 pt-28 md:pt-36 shadow-2xl">
-            {/* Background Image with Scale-In Animation */}
+            {/* Background Image with Scale-In Animation & Parallax */}
             <motion.div
               initial={{ scale: 1.08 }}
               animate={{ scale: 1 }}
-              transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-0 w-full h-full"
+              transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] as const }}
+              style={{ y: heroParallaxY }}
+              className="absolute -top-12 -bottom-12 inset-x-0 w-full"
             >
               <Image
                 src={IMAGES.heroRooftop}
@@ -341,32 +413,42 @@ export default function HomePage() {
 
             {/* Hero Main Content */}
             <div className="max-w-4xl relative z-10 my-auto">
-              {/* Badge */}
+              {/* Continuous Floating Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                animate={{
+                  opacity: 1,
+                  y: [-5, 5, -5],
+                }}
+                transition={{
+                  opacity: { duration: 0.6, delay: 0.1 },
+                  y: { repeat: Infinity, duration: 4, ease: "easeInOut" },
+                }}
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md bg-white/20 text-white border border-white/30 uppercase tracking-wider mb-6 shadow-sm"
               >
                 <span className="w-2 h-2 rounded-full bg-lime animate-pulse shadow-[0_0_8px_#C8F169]" />
                 <span>Clean Energy Revolution</span>
               </motion.div>
 
-              {/* Heading */}
+              {/* Staggered Headline Reveal */}
               <motion.h1
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="text-5xl md:text-7xl font-medium tracking-tight text-white leading-[1.08]"
+                variants={headlineVariants}
+                initial="hidden"
+                animate="visible"
+                className="text-5xl md:text-7xl font-medium tracking-tight text-white leading-[1.08] flex flex-wrap gap-x-[0.28em] gap-y-1"
               >
-                Brighter Future Begins with Clean Power
+                {headlineWords.map((word, i) => (
+                  <motion.span key={i} variants={wordVariants} className="inline-block">
+                    {word}
+                  </motion.span>
+                ))}
               </motion.h1>
 
               {/* Subtitle */}
               <motion.p
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.3 }}
+                transition={{ duration: 0.7, delay: 0.35 }}
                 className="mt-6 text-lg md:text-xl text-white/85 max-w-2xl font-normal leading-relaxed"
               >
                 Empower your home or business with reliable, renewable solar
@@ -374,29 +456,41 @@ export default function HomePage() {
                 costs.
               </motion.p>
 
-              {/* CTA Buttons */}
+              {/* Magnetic Hover CTA Buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4 }}
+                transition={{ duration: 0.7, delay: 0.45 }}
                 className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
               >
                 {/* 1) Lime green pill button */}
-                <Link
-                  href="#packages"
-                  className="rounded-full px-8 py-4 font-semibold text-charcoal bg-lime hover:bg-lime-hover shadow-[0_8px_30px_rgba(200,241,105,0.45)] hover:shadow-[0_12px_36px_rgba(200,241,105,0.65)] border border-lime-dark/30 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group text-base"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  <span>Explore Packages</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
+                  <Link
+                    href="#packages"
+                    className="rounded-full px-8 py-4 font-semibold text-charcoal bg-lime hover:bg-lime-hover shadow-[0_8px_30px_rgba(200,241,105,0.45)] hover:shadow-[0_12px_36px_rgba(200,241,105,0.65)] border border-lime-dark/30 transition-all duration-200 flex items-center justify-center gap-2 group text-base"
+                  >
+                    <span>Explore Packages</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </motion.div>
 
                 {/* 2) Frosted glass pill button */}
-                <Link
-                  href="#inspection"
-                  className="backdrop-blur-md bg-white/20 hover:bg-white/30 border border-white/30 text-white font-medium rounded-full px-8 py-4 transition-all duration-200 shadow-sm flex items-center justify-center hover:scale-[1.02] active:scale-[0.98] text-base"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  Book Free Inspection
-                </Link>
+                  <Link
+                    href="#quote"
+                    className="backdrop-blur-md bg-white/20 hover:bg-white/30 border border-white/30 text-white font-medium rounded-full px-8 py-4 transition-all duration-200 shadow-sm flex items-center justify-center text-base"
+                  >
+                    Book Free Inspection
+                  </Link>
+                </motion.div>
               </motion.div>
             </div>
 
@@ -433,10 +527,20 @@ export default function HomePage() {
             </h2>
           </FadeIn>
 
-          {/* Bento Grid (2 Columns on Desktop) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          {/* Bento Grid (2 Columns on Desktop) with Staggered In-View Reveal & Hover Elevation */}
+          <motion.div
+            variants={bentoContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch"
+          >
             {/* Left Tall Card: Solar technician working on panels */}
-            <FadeIn className="lg:col-span-6 rounded-3xl overflow-hidden relative min-h-[520px] lg:min-h-full bg-charcoal shadow-sm border border-gray-200/80 group hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 hover:shadow-2xl">
+            <motion.div
+              variants={bentoCardVariants}
+              whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+              className="lg:col-span-6 rounded-3xl overflow-hidden relative min-h-[520px] lg:min-h-full bg-charcoal shadow-sm border border-gray-200/80 hover:border-lime/60 hover:shadow-2xl transition-[border-color,box-shadow] duration-300 group"
+            >
               {/* Background Image */}
               <Image
                 src={IMAGES.technician}
@@ -452,12 +556,16 @@ export default function HomePage() {
 
               {/* Content */}
               <div className="relative z-10 flex flex-col justify-between h-full p-8 sm:p-10">
-                {/* Top Glass Icon Badge */}
+                {/* Top Glass Icon Badge with subtle float */}
                 <div className="self-start">
-                  <div className="backdrop-blur-md bg-white/20 border border-white/30 text-white rounded-full py-2 px-4 inline-flex items-center gap-2 text-xs font-semibold shadow-sm">
+                  <motion.div
+                    animate={{ y: [-5, 5, -5] }}
+                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                    className="backdrop-blur-md bg-white/20 border border-white/30 text-white rounded-full py-2 px-4 inline-flex items-center gap-2 text-xs font-semibold shadow-sm"
+                  >
                     <Wrench className="w-3.5 h-3.5 text-lime" />
                     <span>Certified Installation Engineering</span>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Bottom Overlay Text */}
@@ -472,14 +580,15 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </FadeIn>
+            </motion.div>
 
             {/* Right Column: Top Card + Bottom Split (2 Cards) */}
             <div className="lg:col-span-6 flex flex-col gap-6">
               {/* Right Top Card: Solar panels & greenery background */}
-              <FadeIn
-                delay={0.1}
-                className="rounded-3xl overflow-hidden relative min-h-[280px] bg-charcoal shadow-sm border border-gray-200/80 group hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 hover:shadow-xl"
+              <motion.div
+                variants={bentoCardVariants}
+                whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+                className="rounded-3xl overflow-hidden relative min-h-[280px] bg-charcoal shadow-sm border border-gray-200/80 hover:border-lime/60 hover:shadow-2xl transition-[border-color,box-shadow] duration-300 group"
               >
                 <Image
                   src={IMAGES.solarGreenery}
@@ -516,14 +625,15 @@ export default function HomePage() {
                     <span>Carbon-neutral footprint guaranteed</span>
                   </div>
                 </div>
-              </FadeIn>
+              </motion.div>
 
               {/* Right Bottom Split (2 Cards) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Card 1: Lime Green (#C8F169) background */}
-                <FadeIn
-                  delay={0.2}
-                  className="bg-lime rounded-3xl p-8 flex flex-col justify-between min-h-[250px] shadow-sm border border-lime-dark/40 group hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 hover:shadow-xl"
+                <motion.div
+                  variants={bentoCardVariants}
+                  whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+                  className="bg-lime rounded-3xl p-8 flex flex-col justify-between min-h-[250px] shadow-sm border border-lime-dark/40 hover:border-lime-dark hover:shadow-2xl transition-[border-color,box-shadow] duration-300 group"
                 >
                   <div className="flex items-center justify-between">
                     <div className="w-12 h-12 rounded-full bg-charcoal text-lime flex items-center justify-center shadow-md">
@@ -542,12 +652,13 @@ export default function HomePage() {
                       Lower electricity bills with smart solar optimization.
                     </p>
                   </div>
-                </FadeIn>
+                </motion.div>
 
                 {/* Card 2: Image Card with Solar farm array & 25+ Years Warranty */}
-                <FadeIn
-                  delay={0.3}
-                  className="rounded-3xl overflow-hidden relative min-h-[250px] bg-charcoal text-white shadow-sm border border-gray-200/80 group hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 hover:shadow-xl"
+                <motion.div
+                  variants={bentoCardVariants}
+                  whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+                  className="rounded-3xl overflow-hidden relative min-h-[250px] bg-charcoal text-white shadow-sm border border-gray-200/80 hover:border-lime/60 hover:shadow-2xl transition-[border-color,box-shadow] duration-300 group"
                 >
                   <Image
                     src={IMAGES.solarFarm}
@@ -564,9 +675,13 @@ export default function HomePage() {
                   {/* Content */}
                   <div className="relative z-10 flex flex-col justify-between h-full p-8">
                     <div className="self-start">
-                      <div className="w-10 h-10 rounded-full backdrop-blur-md bg-white/20 border border-white/30 flex items-center justify-center text-lime shadow-sm">
+                      <motion.div
+                        animate={{ y: [-5, 5, -5] }}
+                        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 1 }}
+                        className="w-10 h-10 rounded-full backdrop-blur-md bg-white/20 border border-white/30 flex items-center justify-center text-lime shadow-sm"
+                      >
                         <ShieldCheck className="w-5 h-5 text-lime" />
-                      </div>
+                      </motion.div>
                     </div>
 
                     <div className="mt-auto">
@@ -578,11 +693,16 @@ export default function HomePage() {
                       </h4>
                     </div>
                   </div>
-                </FadeIn>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </section>
+
+        {/* ========================================================================= */}
+        {/* OFFICIAL OFF-GRID SOLAR PACKAGES SECTION                                  */}
+        {/* ========================================================================= */}
+        <SolarPackages id="packages" />
 
         {/* ========================================================================= */}
         {/* SECTION 3: 'WHY IT WORKS' (INTERACTIVE ACCORDION + DYNAMIC IMAGE)         */}
@@ -622,67 +742,74 @@ export default function HomePage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: item.id * 0.08 }}
                     onClick={() => setActiveAccordion(item.id)}
-                    className={`rounded-2xl transition-all duration-300 cursor-pointer overflow-hidden border ${
-                      isActive
-                        ? "bg-[#F9FBE7] border-lime shadow-[0_4px_20px_rgba(200,241,105,0.25)] ring-1 ring-lime/50"
-                        : "bg-surface/70 hover:bg-surface border-gray-200/80 hover:border-gray-300"
-                    }`}
+                    className="relative rounded-2xl cursor-pointer overflow-hidden border border-gray-200/80 transition-all duration-300"
                   >
-                    <div className="p-5 sm:p-6 flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-4">
-                        <span
-                          className={`text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full transition-colors ${
-                            isActive
-                              ? "bg-charcoal text-lime font-mono"
-                              : "bg-gray-200 text-muted font-mono"
-                          }`}
-                        >
-                          {item.number}
-                        </span>
-                        <div className="flex items-center gap-2.5">
-                          <Icon
-                            className={`w-5 h-5 transition-colors ${
-                              isActive ? "text-lime-dark" : "text-muted"
-                            }`}
-                          />
-                          <h3
-                            className={`text-base sm:text-lg font-bold tracking-tight transition-colors ${
-                              isActive ? "text-charcoal" : "text-charcoal/80"
+                    {/* Active Tab Indicator with smooth layoutId motion */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeAccordionHighlight"
+                        className="absolute inset-0 bg-[#F9FBE7] border border-lime shadow-[0_4px_20px_rgba(200,241,105,0.25)] ring-1 ring-lime/50 rounded-2xl pointer-events-none z-0"
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    )}
+
+                    <div className={`relative z-10 transition-colors ${!isActive ? "bg-surface/70 hover:bg-surface" : ""}`}>
+                      <div className="p-5 sm:p-6 flex items-start justify-between gap-4">
+                        <div className="flex items-center gap-4">
+                          <span
+                            className={`text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full transition-colors ${
+                              isActive
+                                ? "bg-charcoal text-lime font-mono"
+                                : "bg-gray-200 text-muted font-mono"
                             }`}
                           >
-                            {item.title}
-                          </h3>
+                            {item.number}
+                          </span>
+                          <div className="flex items-center gap-2.5">
+                            <Icon
+                              className={`w-5 h-5 transition-colors ${
+                                isActive ? "text-lime-dark" : "text-muted"
+                              }`}
+                            />
+                            <h3
+                              className={`text-base sm:text-lg font-bold tracking-tight transition-colors ${
+                                isActive ? "text-charcoal" : "text-charcoal/80"
+                              }`}
+                            >
+                              {item.title}
+                            </h3>
+                          </div>
+                        </div>
+
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                            isActive
+                              ? "bg-lime text-charcoal rotate-180 shadow-sm"
+                              : "bg-white text-muted border border-gray-200"
+                          }`}
+                        >
+                          <ChevronDown className="w-4 h-4" />
                         </div>
                       </div>
 
-                      <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                          isActive
-                            ? "bg-lime text-charcoal rotate-180 shadow-sm"
-                            : "bg-white text-muted border border-gray-200"
-                        }`}
-                      >
-                        <ChevronDown className="w-4 h-4" />
-                      </div>
+                      {/* Smooth AnimatePresence Expand/Collapse with Linear/Apple ease */}
+                      <AnimatePresence initial={false}>
+                        {isActive && (
+                          <motion.div
+                            key="content"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.35, ease: [0.04, 0.62, 0.23, 0.98] as const }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-5 pb-6 sm:px-6 pt-1 border-t border-lime/30 text-sm sm:text-base text-charcoal/85 leading-relaxed pl-14">
+                              {item.content}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-
-                    {/* Smooth AnimatePresence Expand/Collapse */}
-                    <AnimatePresence initial={false}>
-                      {isActive && (
-                        <motion.div
-                          key="content"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-5 pb-6 sm:px-6 pt-1 border-t border-lime/30 text-sm sm:text-base text-charcoal/85 leading-relaxed pl-14">
-                            {item.content}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </motion.div>
                 );
               })}
@@ -781,75 +908,89 @@ export default function HomePage() {
             {/* Horizontal Scrollable / Draggable Carousel */}
             <div
               ref={carouselRef}
-              className="flex gap-6 overflow-x-auto scroll-smooth pb-8 pt-2 scrollbar-none snap-x snap-mandatory"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              className="overflow-hidden pb-8 pt-2 cursor-grab active:cursor-grabbing select-none"
             >
-              {services.map((svc, idx) => {
-                const Icon = svc.icon;
-                return (
-                  <motion.div
-                    key={svc.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="w-[310px] sm:w-[380px] shrink-0 snap-start bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm hover:shadow-xl hover:border-lime hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 flex flex-col justify-between group"
-                  >
-                    <div>
-                      {/* Rounded-2xl image container */}
-                      <div className="relative h-56 rounded-2xl overflow-hidden mb-5 bg-charcoal">
-                        <Image
-                          src={svc.image}
-                          alt={svc.title}
-                          fill
-                          unoptimized
-                          className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                          sizes="(max-width: 640px) 310px, 380px"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+              <motion.div
+                drag="x"
+                dragConstraints={{ right: 0, left: -dragWidth }}
+                dragElastic={0.08}
+                animate={{ x: carouselX }}
+                onDragEnd={(_, info) => {
+                  setCarouselX((prev) => {
+                    const newX = prev + info.offset.x;
+                    return Math.max(Math.min(newX, 0), -dragWidth);
+                  });
+                }}
+                className="flex gap-6 will-change-transform"
+              >
+                {services.map((svc, idx) => {
+                  const Icon = svc.icon;
+                  return (
+                    <motion.div
+                      key={svc.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: idx * 0.1 }}
+                      whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+                      className="w-[310px] sm:w-[380px] shrink-0 bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm hover:shadow-xl hover:border-lime transition-all duration-300 flex flex-col justify-between group"
+                    >
+                      <div>
+                        {/* Rounded-2xl image container */}
+                        <div className="relative h-56 rounded-2xl overflow-hidden mb-5 bg-charcoal">
+                          <Image
+                            src={svc.image}
+                            alt={svc.title}
+                            fill
+                            unoptimized
+                            className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                            sizes="(max-width: 640px) 310px, 380px"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
 
-                        {/* Category Tag Badge */}
-                        <div className="absolute top-4 left-4 z-10">
-                          <span className="backdrop-blur-md bg-white/80 border border-white/60 text-charcoal rounded-full py-1.5 px-3 text-xs font-bold inline-flex items-center gap-1.5 shadow-sm">
-                            <Icon className="w-3.5 h-3.5 text-lime-dark" />
-                            <span>{svc.tag}</span>
-                          </span>
+                          {/* Category Tag Badge */}
+                          <div className="absolute top-4 left-4 z-10">
+                            <span className="backdrop-blur-md bg-white/80 border border-white/60 text-charcoal rounded-full py-1.5 px-3 text-xs font-bold inline-flex items-center gap-1.5 shadow-sm">
+                              <Icon className="w-3.5 h-3.5 text-lime-dark" />
+                              <span>{svc.tag}</span>
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Title & Description */}
+                        <h3 className="text-xl font-bold text-charcoal tracking-tight group-hover:text-black transition-colors">
+                          {svc.title}
+                        </h3>
+                        <p className="mt-2.5 text-sm text-muted leading-relaxed">
+                          {svc.description}
+                        </p>
+
+                        {/* Feature Pills */}
+                        <div className="mt-4 flex flex-wrap gap-1.5">
+                          {svc.features.map((feat, i) => (
+                            <span
+                              key={i}
+                              className="inline-flex items-center text-[11px] font-medium text-charcoal bg-surface px-2.5 py-1 rounded-full border border-gray-200/70"
+                            >
+                              {feat}
+                            </span>
+                          ))}
                         </div>
                       </div>
 
-                      {/* Title & Description */}
-                      <h3 className="text-xl font-bold text-charcoal tracking-tight group-hover:text-black transition-colors">
-                        {svc.title}
-                      </h3>
-                      <p className="mt-2.5 text-sm text-muted leading-relaxed">
-                        {svc.description}
-                      </p>
-
-                      {/* Feature Pills */}
-                      <div className="mt-4 flex flex-wrap gap-1.5">
-                        {svc.features.map((feat, i) => (
-                          <span
-                            key={i}
-                            className="inline-flex items-center text-[11px] font-medium text-charcoal bg-surface px-2.5 py-1 rounded-full border border-gray-200/70"
-                          >
-                            {feat}
-                          </span>
-                        ))}
+                      {/* Bottom CTA Link */}
+                      <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between">
+                        <span className="text-xs font-bold text-charcoal group-hover:text-black transition-colors uppercase tracking-wider">
+                          Explore Solution
+                        </span>
+                        <div className="w-8 h-8 rounded-full bg-surface group-hover:bg-lime text-charcoal flex items-center justify-center transition-all duration-200 group-hover:translate-x-1">
+                          <ArrowRight className="w-4 h-4 text-charcoal" />
+                        </div>
                       </div>
-                    </div>
-
-                    {/* Bottom CTA Link */}
-                    <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between">
-                      <span className="text-xs font-bold text-charcoal group-hover:text-black transition-colors uppercase tracking-wider">
-                        Explore Solution
-                      </span>
-                      <div className="w-8 h-8 rounded-full bg-surface group-hover:bg-lime text-charcoal flex items-center justify-center transition-all duration-200 group-hover:translate-x-1">
-                        <ArrowRight className="w-4 h-4 text-charcoal" />
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
             </div>
           </div>
         </section>
@@ -1129,7 +1270,7 @@ export default function HomePage() {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{
                             duration: 0.35,
-                            ease: [0.16, 1, 0.3, 1],
+                            ease: [0.04, 0.62, 0.23, 0.98] as const,
                           }}
                           className="overflow-hidden"
                         >

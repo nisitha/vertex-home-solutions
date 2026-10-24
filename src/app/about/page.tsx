@@ -181,7 +181,7 @@ export default function AboutPage() {
 
               <div className="mt-6 pt-6 border-t border-gray-200/70 flex items-center gap-2 text-xs font-semibold text-charcoal">
                 <CheckCircle2 className="w-4 h-4 text-lime-dark" />
-                <span>100% Transparent Net-Metering Calculations</span>
+                <span>100% Transparent Off-Grid & Battery Quotations</span>
               </div>
             </FadeIn>
 

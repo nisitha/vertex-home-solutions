@@ -246,7 +246,7 @@ export default function ContactPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, notes: e.target.value })
                         }
-                        placeholder="Looking for a 5kW on-grid system with net accounting; 3-phase connection."
+                        placeholder="Looking for a 5kW Off-Grid Hybrid system with battery backup; 3-phase connection."
                         className="w-full px-4 py-3 rounded-2xl bg-white border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-lime resize-none"
                       />
                     </div>

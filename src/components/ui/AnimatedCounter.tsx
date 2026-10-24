@@ -22,27 +22,31 @@ export function AnimatedCounter({
 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-20px" });
-  const [displayValue, setDisplayValue] = useState(0);
+  const [displayValue, setDisplayValue] = useState(value);
+  const prevValueRef = useRef<number>(0);
 
   useEffect(() => {
     if (!isInView) return;
 
     let startTimestamp: number | null = null;
     let animationFrameId: number;
+    const startVal = prevValueRef.current;
+    const targetVal = value;
 
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
       // easeOutExpo easing
       const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      const current = easeProgress * value;
+      const current = startVal + (targetVal - startVal) * easeProgress;
 
       setDisplayValue(current);
 
       if (progress < 1) {
         animationFrameId = window.requestAnimationFrame(step);
       } else {
-        setDisplayValue(value);
+        setDisplayValue(targetVal);
+        prevValueRef.current = targetVal;
       }
     };
 

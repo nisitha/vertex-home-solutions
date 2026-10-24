@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
@@ -16,15 +16,10 @@ import {
   ArrowRight,
   ShieldCheck,
   Check,
-  Sparkles,
-  ArrowUpRight,
-  Layers,
-  Ruler,
-  TrendingDown,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
+import { SolarPackages } from "@/components/SolarPackages";
 
 const IMAGES = {
   heroBanner:
@@ -42,124 +37,43 @@ const IMAGES = {
 };
 
 export default function ServicesPage() {
-  const [selectedTier, setSelectedTier] = useState<string>("5kW");
-
-  const packages = [
-    {
-      id: "3kW",
-      name: "3 kW Starter Pack",
-      badge: "Essential Autonomy",
-      popular: false,
-      panels: "7x 430W Tier-1 Panels",
-      generation: "360 – 420 kWh / mo",
-      roofSpace: "180 sq. ft.",
-      savings: "$80 – $120 / month",
-      annualSavings: "$1,200+ / yr",
-      idealFor: "1-2 Bedroom residences, lighting, refrigeration & modern laptops",
-      features: [
-        "Tier-1 Monocrystalline Bifacial Cells",
-        "Enphase Microinverter System",
-        "Complimentary Roof Azimuth Survey",
-        "25-Year Production Guarantee",
-        "Real-Time Mobile Energy App",
-      ],
-    },
-    {
-      id: "5kW",
-      name: "5 kW Standard Home",
-      badge: "Most Popular",
-      popular: true,
-      panels: "12x 430W Tier-1 Panels",
-      generation: "620 – 740 kWh / mo",
-      roofSpace: "310 sq. ft.",
-      savings: "$150 – $220 / month",
-      annualSavings: "$2,200+ / yr",
-      idealFor: "2-3 Bedroom medium households, inverter ACs, dishwashers & home offices",
-      features: [
-        "Everything in 3 kW Starter Pack",
-        "High-Heat Performance Coefficient",
-        "Zero-Down Fixed-Rate Solar Financing",
-        "Full Utility Net-Metering Permitting",
-        "Lifetime Vertex Concierge Support",
-      ],
-    },
-    {
-      id: "10kW",
-      name: "10 kW Executive Array",
-      badge: "Maximum Value",
-      popular: false,
-      panels: "24x 430W Tier-1 Panels",
-      generation: "1,280 – 1,520 kWh / mo",
-      roofSpace: "620 sq. ft.",
-      savings: "$290 – $410 / month",
-      annualSavings: "$4,200+ / yr",
-      idealFor: "4-5 Bedroom large homes, multiple HVAC zones, heavy EV charging loads",
-      features: [
-        "Everything in 5 kW Standard",
-        "Dual EV Charger Interconnect Ready",
-        "Tesla Powerwall / LiFePO4 Battery Sync",
-        "Annual UAV Thermographic Health Check",
-        "Priority 2-Hour Emergency Response",
-      ],
-    },
-    {
-      id: "15kW",
-      name: "15 kW Estate & Microgrid",
-      badge: "Zero-Grid Autonomy",
-      popular: false,
-      panels: "35x 430W Tier-1 Panels",
-      generation: "1,920 – 2,280 kWh / mo",
-      roofSpace: "920 sq. ft.",
-      savings: "$440 – $610 / month",
-      annualSavings: "$6,200+ / yr",
-      idealFor: "Luxury estates, heated swimming pools, commercial studios & large families",
-      features: [
-        "Bespoke Architectural Racking",
-        "Triple-Phase Industrial Hybrid Inverters",
-        "Sub-Second Blackout Automation",
-        "Executive VIP Engineering Concierge",
-        "Lifetime Zero-Deductible Warranty",
-      ],
-    },
-  ];
-
   const serviceBreakdowns = [
     {
-      title: "Residential Solar Installation",
-      subtitle: "Turnkey Clean Electricity for Your Roof",
-      desc: "Our master electricians design custom solar configurations that complement your architectural rooflines while squeezing every kilowatt of energy from daylight. We manage all municipal HOA guidelines, utility net-metering interconnection, and engineering permits.",
+      title: "Residential Off-Grid Solar Installation",
+      subtitle: "Turnkey Clean Electricity with Zero Power Cuts",
+      desc: "Our certified solar engineers design custom rooftop solar arrays that complement your architecture while delivering complete energy independence. We manage complete roof mounting, Off-Grid safety switchover gear, and battery commissioning.",
       icon: Sun,
       image: IMAGES.residential,
       highlights: [
-        "Tier-1 Monocrystalline bifacial panels (22.8% efficiency)",
+        "Tier-1 Monocrystalline Jinko solar panels (22.8% efficiency)",
         "Zero-leak flash mounting brackets with hurricane ratings",
-        "Independent microinverter architecture avoiding shadow loss",
-        "Instant net-metering synchronization with local utilities",
+        "Off-Grid and Hybrid inverters with sub-second switchover",
+        "100% immunity from utility power cuts and blackouts",
       ],
     },
     {
       title: "Commercial & Industrial Microgrids",
       subtitle: "Enterprise Clean Power & ESG Optimization",
-      desc: "We deploy utility-grade rooftop, carport, and ground-mounted photovoltaic systems for office buildings, warehouses, schools, and industrial facilities. Slash daytime operating expenditures while locking in predictable energy costs for the next three decades.",
+      desc: "We deploy heavy-duty commercial Off-Grid photovoltaic systems for office buildings, warehouses, schools, and industrial facilities. Slash daytime operating expenditures while locking in predictable energy costs for the next three decades.",
       icon: Building2,
       image: IMAGES.commercial,
       highlights: [
-        "30% Federal Investment Tax Credit (ITC) eligibility",
-        "Accelerated MACRS depreciation benefits",
-        "Power Purchase Agreement (PPA) & $0 capital outlay models",
-        "Dedicated SCADA utility monitoring dashboard",
+        "Dramatically reduces daytime and peak commercial utility expenditures",
+        "Accelerated commercial depreciation benefits",
+        "0% Commercial financing & structured bank installment models",
+        "Dedicated SCADA telemetry monitoring dashboard",
       ],
     },
     {
       title: "Hybrid & Off-Grid Battery Systems",
       subtitle: "Blackout-Proof Lithium Iron Phosphate Storage",
-      desc: "Never worry about utility grid failures, heatwaves, or winter storms again. Vertex integrates high-density LiFePO4 battery banks that instantly power your HVAC, kitchen appliances, and medical equipment during unexpected outages.",
+      desc: "Never worry about utility grid failures, heatwaves, or power disruptions again. Vertex integrates high-density LiFePO4 battery banks (including Dyness high-performance storage) that instantly power your HVAC, kitchen appliances, and medical equipment.",
       icon: BatteryCharging,
       image: IMAGES.battery,
       highlights: [
         "10,000+ deep charge/discharge cycles (15+ year lifespan)",
         "Sub-second automatic transfer switch (ATS)",
-        "Time-of-Use (TOU) peak rate shaving arbitrage",
+        "Peak load shaving and uninterrupted whole-home power",
         "Non-toxic, chemically stable fireproof battery cells",
       ],
     },
@@ -178,21 +92,21 @@ export default function ServicesPage() {
     },
     {
       title: "Preventative Maintenance & Telemetry",
-      subtitle: "Proactive 24/7 Diagnostics & Lifetime Care",
-      desc: "Vertex installs continuous telemetry sensors on all inverters and battery strings. Our Austin network operations center spots minuscule voltage drops or micro-cracks before they impact your annual power production.",
+      subtitle: "Guaranteed Production for 10-25 Years",
+      desc: "Our automated monitoring portal tracks power generation down to the string level. If a tree branch casts an unexpected shadow, or an inverter requires firmware adjustments, our operations center detects it immediately.",
       icon: Activity,
       image: IMAGES.maintenance,
       highlights: [
-        "24/7 automated telemetry monitoring & fault detection",
-        "Annual drone-assisted thermal infrared panel diagnostics",
-        "Hydrophobic panel washing and debris clearing",
-        "Rapid 24-hour on-site technician dispatch guarantee",
+        "24/7 continuous cloud telemetry alerts",
+        "Annual thermal UAV drone imaging inspections",
+        "Rapid-dispatch certified service technicians",
+        "Zero-hassle manufacturer warranty claim handling",
       ],
     },
   ];
 
   return (
-    <div className="min-h-screen bg-background text-charcoal flex flex-col relative selection:bg-lime selection:text-charcoal">
+    <div className="min-h-screen flex flex-col bg-white text-charcoal font-sans selection:bg-lime selection:text-charcoal">
       <Navbar />
 
       <main className="flex-grow pt-28 sm:pt-36">
@@ -208,7 +122,7 @@ export default function ServicesPage() {
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tightest text-charcoal leading-tight">
-              Engineered solar systems for{" "}
+              100% Off-Grid Solar for{" "}
               <span className="relative inline-block px-3 py-1 bg-lime text-charcoal rounded-2xl shadow-sm rotate-[-1deg]">
                 every home
               </span>{" "}
@@ -217,148 +131,16 @@ export default function ServicesPage() {
 
             <p className="mt-6 text-lg sm:text-xl text-muted max-w-2xl font-normal leading-relaxed">
               Explore our transparent turnkey packages and commercial microgrid
-              capabilities. Designed with Tier-1 bifacial panels, intelligent
-              hybrid storage, and 25-year production guarantees.
+              capabilities. Designed with Tier-1 Jinko bifacial panels, intelligent
+              hybrid storage, and 10-year comprehensive warranties.
             </p>
           </FadeIn>
         </section>
 
         {/* ========================================================================= */}
-        {/* SOLAR PACKAGE CARDS (3kW, 5kW, 10kW, 15kW)                               */}
+        {/* SOLAR PACKAGE CARDS                                                       */}
         {/* ========================================================================= */}
-        <section id="packages" className="py-20 bg-surface/60 border-t border-gray-200/70">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-              <div>
-                <PillBadge variant="neutral" className="mb-3">
-                  Turnkey Solar Packages
-                </PillBadge>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-charcoal">
-                  Find the ideal capacity for your roof
-                </h2>
-              </div>
-              <p className="text-muted text-sm sm:text-base max-w-md mt-4 md:mt-0">
-                All packages include Tier-1 monocrystalline panels, certified
-                installation, HOA permitting, and 25-year warranty.
-              </p>
-            </FadeIn>
-
-            {/* Grid of 4 Solar Packages */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-              {packages.map((pkg, idx) => {
-                const isSelected = selectedTier === pkg.id;
-                return (
-                  <motion.div
-                    key={pkg.id}
-                    initial={{ opacity: 0, y: 25 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    onClick={() => setSelectedTier(pkg.id)}
-                    className={`rounded-3xl p-7 flex flex-col justify-between transition-all duration-300 relative cursor-pointer border hover:scale-[1.02] active:scale-[0.99] ${
-                      pkg.popular
-                        ? "bg-white border-lime-dark shadow-xl ring-2 ring-lime hover:shadow-2xl"
-                        : "bg-white border-gray-200/90 hover:border-gray-300 shadow-sm hover:shadow-lg"
-                    }`}
-                  >
-                    {/* Badge */}
-                    {pkg.popular && (
-                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                        <span className="bg-charcoal text-lime text-[11px] font-extrabold uppercase tracking-wider px-4 py-1 rounded-full shadow-md">
-                          Most Popular
-                        </span>
-                      </div>
-                    )}
-
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-semibold text-muted uppercase tracking-wider">
-                          {pkg.badge}
-                        </span>
-                        <div
-                          className={`w-3 h-3 rounded-full ${
-                            isSelected ? "bg-lime-dark animate-pulse" : "bg-gray-300"
-                          }`}
-                        />
-                      </div>
-
-                      <h3 className="text-2xl font-black tracking-tight text-charcoal">
-                        {pkg.name}
-                      </h3>
-
-                      {/* Financial Payoff highlight */}
-                      <div className="mt-4 p-4 rounded-2xl bg-[#F9FBE7] border border-lime/50">
-                        <span className="text-xs font-semibold text-charcoal/80 block">
-                          Estimated Monthly Savings
-                        </span>
-                        <span className="text-2xl font-extrabold text-charcoal block mt-0.5">
-                          {pkg.savings}
-                        </span>
-                        <span className="text-[11px] text-lime-dark font-bold bg-charcoal px-2 py-0.5 rounded-full inline-block mt-2">
-                          {pkg.annualSavings}
-                        </span>
-                      </div>
-
-                      {/* Specs List */}
-                      <div className="mt-6 space-y-3 pt-2 text-xs text-charcoal border-t border-gray-100">
-                        <div className="flex items-center justify-between">
-                          <span className="text-muted flex items-center gap-1.5">
-                            <Layers className="w-3.5 h-3.5 text-lime-dark" /> Panels
-                          </span>
-                          <span className="font-bold">{pkg.panels}</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-muted flex items-center gap-1.5">
-                            <Zap className="w-3.5 h-3.5 text-lime-dark" /> Monthly Output
-                          </span>
-                          <span className="font-bold">{pkg.generation}</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-muted flex items-center gap-1.5">
-                            <Ruler className="w-3.5 h-3.5 text-lime-dark" /> Roof Space
-                          </span>
-                          <span className="font-bold">{pkg.roofSpace}</span>
-                        </div>
-                      </div>
-
-                      {/* Ideal For */}
-                      <div className="mt-5 p-3 rounded-xl bg-surface text-xs text-muted leading-relaxed">
-                        <span className="font-bold text-charcoal block mb-0.5">
-                          Ideal Load:
-                        </span>
-                        {pkg.idealFor}
-                      </div>
-
-                      {/* Features Checkmarks */}
-                      <ul className="mt-5 space-y-2 text-xs text-charcoal">
-                        {pkg.features.map((feat, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <Check className="w-3.5 h-3.5 text-lime-dark shrink-0 mt-0.5" />
-                            <span className="leading-tight">{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mt-8 pt-4">
-                      <Link
-                        href={`/contact?package=${pkg.id}`}
-                        className={`w-full py-3.5 px-4 rounded-full font-bold text-xs flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all ${
-                          pkg.popular
-                            ? "bg-lime hover:bg-lime-hover text-charcoal shadow-md"
-                            : "bg-surface hover:bg-charcoal hover:text-white text-charcoal border border-gray-200"
-                        }`}
-                      >
-                        <span>Select {pkg.id} Package</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <SolarPackages id="packages" showTitle={false} />
 
         {/* ========================================================================= */}
         {/* DETAILED SERVICE BREAKDOWNS (5 CORE OFFERINGS)                            */}
@@ -372,8 +154,8 @@ export default function ServicesPage() {
               Detailed Breakdown of All Solar Services
             </h2>
             <p className="mt-4 text-muted text-base sm:text-lg">
-              From residential rooftop surveys to commercial microgrid
-              interconnections, Vertex provides complete end-to-end management.
+              From residential rooftop surveys to commercial Off-Grid microgrids,
+              Vertex provides complete end-to-end management.
             </p>
           </FadeIn>
 
@@ -471,8 +253,8 @@ export default function ServicesPage() {
                 Not sure which package fits your roof?
               </h2>
               <p className="text-charcoal/80 text-sm sm:text-base mt-3">
-                Send us your utility bill and let our satellite modeling software
-                generate a 25-year production and payback report for your exact address.
+                Send us your monthly electricity bill and let our engineers
+                design a tailored 100% Off-Grid solar quotation and free site inspection.
               </p>
             </div>
 

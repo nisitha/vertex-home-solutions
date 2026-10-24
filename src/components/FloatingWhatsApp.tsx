@@ -1,15 +1,20 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 
 export function FloatingWhatsApp() {
   return (
     <aside aria-label="Floating WhatsApp Help" className="fixed bottom-6 right-6 z-50">
-      <a
+      <motion.a
         href="https://wa.me/94702271271?text=Hello%20Vertex%20Home%20Solutions,%20I%20would%20like%20to%20inquire%20about%20solar%20systems%20and%20pricing."
         target="_blank"
         rel="noopener noreferrer"
-        className="group fixed bottom-6 right-6 z-50 shadow-xl bg-[#25D366] text-white flex items-center gap-2 px-4 py-3 rounded-full hover:scale-105 transition-all duration-300 hover:shadow-2xl border-2 border-white/40 focus:outline-none focus:ring-4 focus:ring-[#25D366]/40"
+        animate={{ scale: [1, 1.06, 1] }}
+        transition={{ repeat: Infinity, duration: 2.8, ease: "easeInOut" }}
+        whileHover={{ scale: 1.12 }}
+        whileTap={{ scale: 0.92 }}
+        className="group fixed bottom-6 right-6 z-50 shadow-xl bg-[#25D366] text-white flex items-center gap-2 px-4 py-3 rounded-full transition-shadow duration-300 hover:shadow-2xl border-2 border-white/40 focus:outline-none focus:ring-4 focus:ring-[#25D366]/40 cursor-pointer"
         aria-label="Direct WhatsApp Contact +94 70 227 1271"
       >
         <span className="relative flex h-2.5 w-2.5">
@@ -26,7 +31,7 @@ export function FloatingWhatsApp() {
           <span className="text-xs font-bold leading-tight">WhatsApp Us</span>
           <span className="text-[10px] text-white/90 font-medium leading-none">+94 70 227 1271</span>
         </div>
-      </a>
+      </motion.a>
     </aside>
   );
 }
